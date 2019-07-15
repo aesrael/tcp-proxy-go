@@ -6,15 +6,13 @@ import (
 	"log"
 	"net"
 	"os"
+	"tcp/util"
 )
 
-const address = "127.0.0.1:8081"
-
 func main() {
-	conn, err := net.Dial("tcp", address)
-	if err != nil {
-		os.Exit(1)
-	}
+	conn, err := net.Dial("tcp", util.ProxyAddress)
+	util.HandleErr(err)
+	fmt.Println("client connected to proxy @", util.ProxyAddress)
 	defer conn.Close()
 	const filename = "./file.txt"
 	createFile(filename)
@@ -37,8 +35,7 @@ func sendFile(filename string, conn net.Conn) {
 }
 
 func createFile(filename string) {
-	const content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor"
-
+	const content = "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
 	_, err := os.Stat(filename)
 	if os.IsNotExist(err) {
 		file, err := os.Create(filename)
