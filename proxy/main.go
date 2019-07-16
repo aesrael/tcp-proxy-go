@@ -2,32 +2,29 @@ package main
 
 import (
 	"fmt"
+	"good-to-go/utils"
 	"io"
-	"log"
 	"net"
-	"os"
 	"tcp/util"
 )
 
 func main() {
 	fmt.Println("proxy listening for connection@", util.ProxyAddress)
 	// listen on all interfaces
-	ln, _ := net.Listen("tcp", util.ProxyAddress)
+	ln, err := net.Listen("tcp", util.ProxyAddress)
+	utils.HandleErr(err)
 	// accept connection on port
-	proxyConn, _ := ln.Accept()
+	proxyConn, err := ln.Accept()
+	utils.HandleErr(err)
 	defer proxyConn.Close()
 	// connect to proxy server
 	serverConn, err := net.Dial("tcp", util.ServerAddress)
-	if err != nil {
-		os.Exit(1)
-	}
+	utils.HandleErr(err)
 	defer proxyConn.Close()
-	receiveFile(proxyConn, serverConn)
+	sendFile(proxyConn, serverConn)
 }
 
-func receiveFile(conn, proxyConn net.Conn) {
+func sendFile(conn, proxyConn net.Conn) {
 	_, err := io.Copy(proxyConn, conn)
-	if err != nil {
-		log.Fatal(err)
-	}
+	utils.HandleErr(err)
 }
