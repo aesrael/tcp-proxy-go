@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 	"os"
-	"tcp/util"
+	"tcp-proxy-go/util"
 )
 
 func main() {

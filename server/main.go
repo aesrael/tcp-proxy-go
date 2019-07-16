@@ -5,7 +5,7 @@ import (
 	"io"
 	"net"
 	"os"
-	"tcp/util"
+	"tcp-proxy-go/util"
 )
 
 const filename = "file.txt"
