@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"go-tcp-proxy/util"
 	"io"
 	"net"
+	"tcp-proxy-go/util"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 	sendFile(proxyConn, serverConn)
 }
 
-func sendFile(conn, proxyConn net.Conn) {
-	_, err := io.Copy(proxyConn, conn)
+func sendFile(proxyConn, serverConn net.Conn) {
+	_, err := io.Copy(serverConn, proxyConn)
 	util.HandleErr(err)
 }

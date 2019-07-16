@@ -1,5 +1,5 @@
 package util
 
-const ClientAddress = ":7000"
-const ServerAddress = ":7001"
-const ProxyAddress = ":8081"
+const ClientAddress = ":1041"
+const ServerAddress = ":1042"
+const ProxyAddress = ":1043"
